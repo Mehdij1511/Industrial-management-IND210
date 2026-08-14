@@ -146,42 +146,6 @@ Industrial-management-IND210/
 
 ---
 
-## 🔧 Getting Started
-
-### Prerequisites
-- Python 3.8+
-- pip or conda
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/Mehdij1511/Industrial-management-IND210.git
-cd Industrial-management-IND210
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### Running Models
-
-```python
-# Production optimization
-python models/production_optimization.py
-
-# Route optimization
-python models/route_optimization.py
-
-# Heijunka simulation
-python models/heijunka_simulation.py
-```
-
----
-
 ## 📊 Key Metrics & KPIs
 
 | Metric | Value | Unit |
@@ -273,5 +237,5 @@ Contributions are welcome! Please feel free to:
 
 ---
 
-**Last Updated:** August 2026  
+**Last Updated:** May 2026  
 **Status:** Project Complete ✓
