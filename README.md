@@ -60,6 +60,8 @@ quadrantChart
     "Optimized product mix": [0.85, 0.90]
 ```
 
+This chart illustrates the project’s impact on operational performance. The original system sat in the low-efficiency, low-profit region due to inefficient routing and poor bottleneck allocation. After optimization, both logistics and production decisions shifted toward the high-efficiency, high-profit space.
+
 ### 4) Heijunka: production leveling
 
 ```mermaid
