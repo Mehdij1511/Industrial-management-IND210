@@ -46,21 +46,18 @@ flowchart LR
     G[High-margin products] --> D
 ```
 
-### 3) Before vs after optimization
+### 3) Production & Logistics Improvement
 
 ```mermaid
 quadrantChart
     title Production & Logistics Improvement
     x-axis Low efficiency --> High efficiency
     y-axis Low profit --> High profit
-    quadrant-1 "Before"
-    quadrant-2 "Target"
-    quadrant-3 "After"
-    quadrant-4 "Best"
-    "Old routing": [0.2, 0.3]
-    "Optimized route": [0.8, 0.7]
-    "Low-margin product mix": [0.3, 0.2]
-    "Optimized product mix": [0.85, 0.9]
+
+    "Low-margin product mix": [0.25, 0.25]
+    "Old routing": [0.20, 0.20]
+    "Optimized route": [0.80, 0.70]
+    "Optimized product mix": [0.85, 0.90]
 ```
 
 ### 4) Heijunka: production leveling
