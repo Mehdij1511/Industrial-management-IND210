@@ -4,158 +4,213 @@
 [![Institution](https://img.shields.io/badge/Institution-NMBU-green)](https://www.nmbu.no/)
 [![Status](https://img.shields.io/badge/Status-Complete-brightgreen)](#)
 
-> A portfolio-ready operations optimization project for TINE Brumunddal, applying Lean Production, Theory of Constraints, linear programming, heuristic routing, and production leveling to improve dairy supply chain performance.
+> A portfolio-ready industrial optimization project for TINE Brumunddal, combining Lean Production, Theory of Constraints, linear programming, heuristic routing, and production leveling to improve dairy supply chain performance.
 
 ---
 
 ## Project Overview
 
-This project was completed as part of the course IND210 - Driftsledelse (Operations Management) at the Norwegian University of Life Sciences (NMBU). The objective was to analyze and improve a dairy supply chain operating under variability, capacity constraints, and logistical complexity.
+This project was completed as part of the course IND210 - Driftsledelse (Operations Management) at the Norwegian University of Life Sciences (NMBU). The objective was to analyze and improve a dairy supply chain operating under fluctuating supply, capacity constraints, and transportation complexity.
 
-The system was modeled as a real-world industrial operations problem where raw milk collection, production scheduling, transportation, and bottleneck management all interact. The project focused on identifying where value was being lost and applying optimization methods to improve profitability, flow, and resilience.
+The challenge was not just moving raw milk efficiently — it was ensuring that the entire production and logistics system generated the highest possible value under real operational limitations.
 
-The core question was simple but important:
+The project focused on three main decision areas:
+- product mix optimization at the bottleneck
+- route efficiency for farm collection
+- production smoothing to reduce variability and bullwhip effects
 
-How can TINE Brumunddal improve efficiency and profitability without sacrificing operational stability or regulatory compliance?
+---
+
+## Visual Overview
+
+### 1) Dairy supply chain flow
+
+```mermaid
+flowchart LR
+    A[Farms] --> B[Milk Collection]
+    B --> C[Production Planning]
+    C --> D[DA-101 Pasteurization Bottleneck]
+    D --> E[Storage / Processing]
+    E --> F[Distribution]
+```
+
+### 2) The bottleneck problem
+
+```mermaid
+flowchart LR
+    A[Raw Milk Intake] --> B[Farm Collection]
+    B --> C[Processing]
+    C --> D[DA-101 Bottleneck]
+    D --> E[Output]
+    F[Low-margin products] --> D
+    G[High-margin products] --> D
+```
+
+### 3) Before vs after optimization
+
+```mermaid
+quadrantChart
+    title Production & Logistics Improvement
+    x-axis Low efficiency --> High efficiency
+    y-axis Low profit --> High profit
+    quadrant-1 "Before"
+    quadrant-2 "Target"
+    quadrant-3 "After"
+    quadrant-4 "Best"
+    "Old routing": [0.2, 0.3]
+    "Optimized route": [0.8, 0.7]
+    "Low-margin product mix": [0.3, 0.2]
+    "Optimized product mix": [0.85, 0.9]
+```
+
+### 4) Heijunka: production leveling
+
+```mermaid
+xychart-beta
+    title Production Smoothing
+    x-axis Time
+    y-axis Output
+    line [10, 18, 12, 9, 16, 14, 13, 12, 11, 13]
+    line [12, 12, 12, 12, 12, 12, 12, 12, 12, 12]
+```
 
 ---
 
 ## The Problem
 
-TINE Brumunddal faces a common but difficult challenge in dairy operations: a supply chain with fluctuating raw milk intake, constrained production capacity, and complex transportation requirements.
+TINE Brumunddal faces a classic industrial operations challenge: fluctuating raw milk supply, limited process capacity, and an increasingly complex logistics network.
 
-### Main operational issues
-- Raw milk supply varies significantly across time and geography
-- Production capacity is limited by specific bottleneck processes
-- Some product types consume scarce bottleneck time without generating sufficient margin
-- Route planning across farms is inefficient if not optimized
-- High variability creates bullwhip effects and unstable planning
+### Main issues
+- Raw milk intake varies across farms and time periods
+- One production step becomes the system bottleneck
+- Some products consume scarce bottleneck time without generating competitive margins
+- Transportation routes are often inefficient when not optimized
+- Supply variability creates bullwhip effects that destabilize planning and inventory
 
-### Why this matters
-In a dairy supply chain, small inefficiencies compound quickly. If the wrong products are produced, if routes are poorly organized, or if production is not leveled, costs increase, throughput falls, and profitability suffers.
+### Why it matters
+In a dairy supply chain, even small operational inefficiencies compound quickly. If the wrong products are produced, if routes are poorly planned, or if production is not leveled, costs rise and profitability falls.
 
-The project addresses these problems by treating the business as a system of constraints, flows, and decisions rather than isolated departments.
+This project addresses the business problem by treating the company as a constrained production and logistics system rather than as isolated departments.
 
 ---
 
 ## What We Solved
 
-This project tackled the problem from three complementary angles:
+The project tackled the problem from three complementary angles.
 
 ### 1) Production Optimization with Linear Programming
 
-The first challenge was identifying the real bottleneck in production and deciding which products should be prioritized.
+The first challenge was identifying the real bottleneck in production and determining which products should be prioritized.
 
-We used a linear programming model to optimize the product mix around the critical bottleneck, DA-101 pasteurization line.
+We used a linear programming model to optimize the product mix around the DA-101 pasteurization line, which was the limiting process in the system.
 
 #### Objective
-Maximize contribution margin while respecting process and capacity constraints.
+Maximize contribution margin while respecting capacity and process constraints.
 
 #### Approach
-- Modeled production as a constrained optimization problem
-- Identified low-margin products consuming bottleneck capacity
+- Modeled production decisions as a constrained optimization problem
+- Identified low-margin products consuming bottleneck time
 - Evaluated contribution margin per production hour
-- Reallocated limited bottleneck time to more valuable products
+- Reallocated scarce bottleneck capacity to higher-value products
 
 #### Result
-- Recommendation to phase out or reduce low-margin products such as mellommelk
+- Recommendation to reduce or phase out low-margin products such as mellommelk
 - Increased daily contribution margin by approximately 9.7%
 - Estimated benefit of around 29,625 NOK per day
 - Demonstrated substantial annual profit potential
 
-This is a classic Theory of Constraints application: improve the system by optimizing the constraint, not by trying to increase every process equally.
+This is a textbook Theory of Constraints application: improve the constraint, not every part of the system equally.
 
 ---
 
 ### 2) Route Optimization with Heuristics
 
-The second challenge was logistics. Milk must be collected from multiple farms across a fragmented supplier network, and transportation costs can rise quickly without effective planning.
+The second challenge was transportation. Milk had to be collected from many suppliers across a geographically fragmented network.
 
-We implemented a vehicle routing heuristic based on the Two-Opt algorithm to reduce travel distance and improve truck utilization.
+We implemented a vehicle routing heuristic using the Two-Opt algorithm to reduce total distance and improve truck utilization.
 
 #### Objective
-Minimize transportation distance and cost while maintaining route feasibility and compliance.
+Minimize travel cost and route length while preserving operational feasibility and compliance.
 
 #### Approach
-- Optimized collection routes from farms to production or collection points
-- Included regulatory constraints such as mandatory rest periods
-- Reduced unnecessary detours and inefficient sequencing
+- Optimized farm collection sequences
+- Incorporated driver rest requirements and legal constraints
+- Reduced unnecessary detours and inefficient routing patterns
 
 #### Result
-- Lower total route length compared to baseline routing
-- Improved logistics efficiency
-- Better utilization of truck capacity
-- Maintained compliance with driver regulations and operational constraints
+- Lower total route distance versus baseline routing
+- Increased operational efficiency
+- Better use of available vehicle capacity
+- Maintained compliance with mandatory rest regulations
 
-This part of the project shows how operational optimization can reduce cost in indirect but impactful ways.
+This shows how logistics optimization can directly improve cost structure and operational performance.
 
 ---
 
 ### 3) Production Leveling (Heijunka)
 
-The third challenge was variability. Raw milk intake fluctuates, creating instability across production and inventory planning.
+The third challenge was variability. Raw milk intake fluctuates, which creates instability and increases the risk of bullwhip effects throughout the chain.
 
-To reduce this instability, we implemented a Heijunka-style production leveling strategy.
+We modeled a Heijunka-style production leveling strategy to smooth output and absorb variation more effectively.
 
 #### Objective
-Stabilize production and reduce the bullwhip effect caused by unpredictable supply volume.
+Reduce variability and stabilize production flow despite fluctuating raw input.
 
 #### Approach
-- Smoothed production schedules
-- Diverted excess supply into storable products where appropriate
-- Reduced operational disruption caused by fluctuating inflow
-- Balanced the system more effectively over time
+- Smoothed production schedules over time
+- Diverted surplus milk into storable products when appropriate
+- Reduced disruption caused by uneven supply patterns
+- Improved inventory and operational planning stability
 
 #### Result
 - Reduced volatility across the chain
 - Improved production stability
 - Better inventory management
-- Enhanced resilience against demand and supply variation
+- Stronger resilience to supply variability
 
-This is where Lean thinking becomes especially valuable: smooth flow reduces waste, improves predictability, and lowers operational stress.
+This is where Lean thinking becomes especially valuable: smoother flow creates less waste and less operational stress.
 
 ---
 
 ## How It Was Solved
 
-The project combined quantitative methods with practical operations knowledge.
+The project combined quantitative methods with practical industrial reasoning.
 
 ### Core methodology
-- Linear programming for product mix optimization
+- Linear programming for product mix and bottleneck allocation
 - Heuristic optimization for routing problems
 - Simulation-based analysis for production leveling
-- Lean principles and Theory of Constraints for operational reasoning
+- Lean principles and Theory of Constraints for decision-making logic
 
 ### Decision logic
-Instead of asking, "How can we produce more?", we asked,
+Rather than asking, "How can we produce more?", the project asked:
+- What is the true constraint?
+- Which products create the most value per bottleneck hour?
+- How can transportation be designed to reduce waste?
+- How can variability be reduced so the system runs more smoothly?
 
-- What is the real constraint?
-- Where does value creation stop being efficient?
-- Which products maximize throughput at the bottleneck?
-- How can routes and schedules be smoothed for better flow?
-
-This reframing is a major lesson in industrial systems optimization: the goal is not simply maximum output, but maximum value creation under constraints.
+This reframing is a key lesson in operations management: optimal performance comes from managing constraints and flow, not simply increasing output.
 
 ---
 
 ## What We Learned
 
-This project provided several important lessons in industrial and supply chain management:
+This project reinforced several important lessons in industrial and supply chain management.
 
-### 1. Bottlenecks determine performance
-A system can only produce as much as its constraint allows. Improving non-bottleneck processes alone does not create proportional gains.
+### 1. Bottlenecks define system performance
+A production system is only as strong as its constraint. Improving non-bottleneck processes alone does not guarantee better outcomes.
 
 ### 2. Product mix matters more than total volume
-Producing more of the wrong product can reduce profitability. The right mix creates much more value than simply increasing output.
+Producing more of the wrong product can destroy margin. The right product mix often creates more value than simply producing more.
 
 ### 3. Logistics is a strategic lever
-Transportation is not just a cost center; it affects service, time, product quality, and operational efficiency.
+Transportation is not only a cost item — it affects quality, timing, reliability, and service performance.
 
 ### 4. Variability is expensive
-Unstable supply and demand create ripple effects across the system. Smoothing and buffering strategies reduce operational pain.
+Unstable demand and supply create ripple effects that propagate through the system. Smoothing and buffering strategies reduce operational strain.
 
-### 5. Data and optimization are decision tools, not just technical exercises
-The value of the project came from connecting mathematical models to real business decisions.
+### 5. Data and optimization create decisions, not just insights
+The value of the project came from translating mathematical models into operational action.
 
 ---
 
@@ -168,14 +223,14 @@ The value of the project came from connecting mathematical models to real busine
 | Optimization | SciPy, HiGHS |
 | Routing & Distance Modeling | Google Routes API |
 | Visualization | GeoJSON, charts, plots |
-| Domain Focus | Agro-industrial supply chain, route planning, production leveling |
+| Domain Focus | Agro-industrial supply chain, route optimization, production leveling |
 
 ### Why these technologies?
 - Python enabled rapid modeling and analysis
-- Pandas and NumPy handled structured industrial data efficiently
+- Pandas and NumPy handled large operational datasets efficiently
 - SciPy and HiGHS solved optimization problems reliably
-- Google Routes API supported realistic route design
-- Visualization tools made operations insights easier to interpret and present
+- Google Routes API supported realistic logistics planning
+- Visualization tools made the operational story easier to explain and present
 
 ---
 
@@ -205,10 +260,10 @@ Industrial-management-IND210/
 │   ├── production_analysis.csv        # Optimization results
 │   ├── optimal_routes.geojson         # Route visualization
 │   ├── bullwhip_analysis.png          # Production smoothing plot
-│   └── summary_report.txt            # Executive summary
+│   └── summary_report.txt             # Executive summary
 │
 └── docs/                              # Documentation
-    ├── methodology.md                 # Detailed methodology
+    ├── methodology.md                # Detailed methodology
     ├── assumptions.md                # Model assumptions
     └── references.md                 # Academic and industrial references
 ```
@@ -228,10 +283,10 @@ Industrial-management-IND210/
 
 ### Business value delivered
 - Increased profitability through bottleneck-focused optimization
-- Reduced logistics cost and travel waste
-- More stable operations under raw material variability
-- Stronger planning and reduced operational risk
-- Scalable framework applicable to similar industrial dairy or food supply chains
+- Reduced logistics costs and travel waste
+- Better production stability under raw material fluctuations
+- Stronger operational planning and reduced risk
+- Scalable framework for similar dairy or agro-industrial supply chains
 
 ---
 
@@ -258,14 +313,14 @@ Industrial-management-IND210/
 
 ## Portfolio Summary
 
-This project demonstrates the ability to combine operations research, data analysis, and business-oriented decision making in a realistic industrial context. It is a strong example of applying analytical modeling to solve meaningful problems in production, logistics, and supply chain management.
+This project demonstrates the ability to combine operations research, data analysis, and business-oriented decision-making in a realistic industrial setting. It is a strong example of applying quantitative methods to solve meaningful problems in production, transportation, and supply chain management.
 
 It reflects a practical skill set relevant to:
 - Supply chain engineering
 - Operations analytics
 - Industrial optimization
 - Process improvement
-- Decision support and strategic planning
+- Strategic decision support
 
 ---
 
